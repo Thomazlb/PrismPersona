@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { loadResults } from '@/utils/scoring';
 import { ArrowRight, BarChart2, Info, Shield, History } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import logoImage from '../contexts/prismpersona.png';
 
 const WelcomePage: React.FC = () => {
   const [hasExistingResults, setHasExistingResults] = useState(false);
@@ -43,6 +44,9 @@ const WelcomePage: React.FC = () => {
       {/* Hero Section */}
       <section className="py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
+          <div className="flex justify-center mb-6">
+            <img src={logoImage} alt="PrismPersona Logo" className="h-24 w-auto" />
+          </div>
           <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
             Découvrez votre profil de personnalité unique avec{" "}
             <span className="text-primary">PrismPersona</span>
