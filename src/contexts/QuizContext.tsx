@@ -116,19 +116,6 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({ children }) => {
     
     // Au lieu de rediriger directement ici, nous utiliserons un effet
   }, [answers, questions]);
-  
-  // Effet pour gérer la redirection après la complétion du quiz
-  useEffect(() => {
-    if (isComplete) {
-      // Petite temporisation pour permettre au toast d'être affiché
-      const redirectTimer = setTimeout(() => {
-        // Redirection programmatique en JavaScript vanille
-        window.location.href = '/results';
-      }, 1000);
-      
-      return () => clearTimeout(redirectTimer);
-    }
-  }, [isComplete]);
 
   // Value object that will be passed to context consumers
   const value: QuizContextType = {
