@@ -133,8 +133,8 @@ const WelcomePage: React.FC = () => {
             
             <Step 
               number={4} 
-              title="Partagez votre carte Prisme"
-              description="Téléchargez et partagez votre profil unique sur les réseaux sociaux."
+              title="Découvrez votre ascendant zodiacal"
+              description="Explorez votre ascendant selon votre signe astrologique."
             />
           </div>
           
