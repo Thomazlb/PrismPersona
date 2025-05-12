@@ -148,9 +148,12 @@ const WelcomePage: React.FC = () => {
 
       {/* Footer Section */}
       <footer className="py-8 px-4 border-t">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto text-center space-y-1">
           <p className="text-muted-foreground">
             © 2025 PrismPersona — Basé sur le modèle des Big Five et la recherche en psychologie moderne.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Réalisé par Thomas ALZIB
           </p>
         </div>
       </footer>
