@@ -4,6 +4,49 @@ import { loadResults } from '@/utils/scoring';
 import { ArrowRight, BarChart2, Info, Shield, History } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logoImage from '../contexts/prismpersona.png';
+import { ref, onValue, runTransaction } from "firebase/database";
+import { db } from "@/lib/firebase";
+import { motion, AnimatePresence } from "framer-motion";
+
+// VisitorCounter component
+const VisitorCounter: React.FC = () => {
+  const [count, setCount] = useState<number>(0);
+  const [prevCount, setPrevCount] = useState<number>(0);
+
+  useEffect(() => {
+    const counterRef = ref(db, "counter");
+    // Listen for real-time updates
+    const unsubscribe = onValue(counterRef, (snapshot) => {
+      const val = snapshot.val() || 0;
+      setPrevCount(count);
+      setCount(val);
+    });
+    // Increment on mount (one per visit)
+    runTransaction(counterRef, (current) => (current || 0) + 1).catch(() => {});
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center mb-10">
+      <span className="text-lg text-muted-foreground mb-1">Visites totales</span>
+      <div className="flex justify-center relative w-full" style={{ height: '3.5rem' }}>
+        <AnimatePresence initial={false} mode="wait">
+          <motion.span
+            key={count}
+            initial={{ y: -40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 40, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 32 }}
+            className="text-5xl font-extrabold font-display w-full text-center"
+            style={{ color: "#8b5cf6", left: 0, right: 0, position: 'absolute' }}
+          >
+            {count}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+};
 
 const WelcomePage: React.FC = () => {
   const [hasExistingResults, setHasExistingResults] = useState(false);
@@ -75,6 +118,9 @@ const WelcomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Visitor Counter Section */}
+      <VisitorCounter />
 
       {/* Features Section */}
       <section className="py-16 bg-muted/30">
